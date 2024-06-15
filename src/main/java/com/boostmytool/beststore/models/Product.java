@@ -5,8 +5,8 @@ import java.util.Date;
 import jakarta.persistence.*;
 
 
-@Entity
-@Table(name = "products") //tao bang products
+@Entity //tao bang products
+@Table(name = "products") //đặt tên bảng là products
 public class Product {
 	@Id //day la id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) // gan tu dong tang
@@ -20,7 +20,7 @@ public class Product {
 	@Column(columnDefinition = "TEXT") // dat type la text, neu khong se mac dinh la varchar
 	private String description;
 	private Date createAt;
-	private String imageFilename;
+	private String imageFileName;
 	
 	
 	public int getId() {
@@ -65,11 +65,11 @@ public class Product {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-	public String getImageFilename() {
-		return imageFilename;
+	public String getImageFileName() {
+		return imageFileName;
 	}
-	public void setImageFilename(String imageFilename) {
-		this.imageFilename = imageFilename;
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
 	}
 	
 	
