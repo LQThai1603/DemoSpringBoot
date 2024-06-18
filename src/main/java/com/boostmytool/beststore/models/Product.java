@@ -23,6 +23,22 @@ public class Product {
 	private String imageFileName;
 	
 	
+	public Product() {}
+	
+	public Product(int id, String name, String brand, String category, double price, String description, Date createAt,
+			String imageFileName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.brand = brand;
+		this.category = category;
+		this.price = price;
+		this.description = description;
+		this.createAt = createAt;
+		this.imageFileName = imageFileName;
+	}
+	
+	
 	public int getId() {
 		return id;
 	}

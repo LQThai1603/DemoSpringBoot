@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.boostmytool.beststore.models.Product;
@@ -26,6 +27,7 @@ import com.boostmytool.beststore.models.ProductDto;
 import com.boostmytool.beststore.services.ProductsRepository;
 
 import jakarta.validation.Valid;
+
 
 @Controller //Annotation này đánh dấu lớp ProductsController là một controller trong Spring MVC, nghĩa là lớp này sẽ xử lý các yêu cầu từ người dùng.
 @RequestMapping("/products") //Annotation này ánh xạ tất cả các yêu cầu HTTP có đường dẫn /products đến các phương thức trong ProductsController.
