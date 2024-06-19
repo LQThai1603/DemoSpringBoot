@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +39,16 @@ public class ProductsController {
 	private ProductsRepository repo;
 	
 	@GetMapping({"", "/"}) //Annotation này ánh xạ các yêu cầu HTTP GET đến phương thức showProductList. Điều này có nghĩa là khi người dùng truy cập vào URL /products bằng phương thức GET, phương thức này sẽ được gọi.
-	public String showProductList(Model model) { //Tham số model của phương thức là một đối tượng Model được Spring MVC cung cấp. Đối tượng này được sử dụng để thêm các thuộc tính (attributes) mà ta muốn chuyển tới view (giao diện).
-		List<Product> products = repo.findAll(Sort.by(Sort.Direction.DESC, "id")); //Lệnh này lấy tất cả các sản phẩm từ kho dữ liệu (repository) bằng cách gọi phương thức findAll của repo, là đối tượng ProductsRepository. Kết quả là một danh sách các đối tượng Product.
-		model.addAttribute("products", products); //Lệnh này thêm danh sách sản phẩm (products) vào model với tên là "products". Dữ liệu này sẽ được truy cập trong view (giao diện) bằng tên "products".
+	public String showProductList(Model model,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size) { //Tham số model của phương thức là một đối tượng Model được Spring MVC cung cấp. Đối tượng này được sử dụng để thêm các thuộc tính (attributes) mà ta muốn chuyển tới view (giao diện).
+		Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+	    Page<Product> productPage = repo.findAll(pageable);
+
+	    model.addAttribute("products", productPage.getContent());
+	    model.addAttribute("currentPage", productPage.getNumber());
+	    model.addAttribute("totalPages", productPage.getTotalPages());
+	    model.addAttribute("totalItems", productPage.getTotalElements());
 		return "products/index"; //Cuối cùng, phương thức trả về tên của view (giao diện) là products/index. Spring MVC sẽ kết hợp tên này với cấu hình của view resolver để tìm tệp HTML tương ứng, chẳng hạn như products/index.html, và trả về tệp này cho người dùng.
 	}
 	
